@@ -23,6 +23,13 @@ app.post('/todos',(req,res)=> {
   })
 })
 
+app.get('/todos',(req,res)=>{
+  Todo.find().then((todos)=>{
+    res.send({todos});//flexibility wrt  arrays
+  },(e)=>{
+    res.status(400),send(e)
+  })//all is back
+})//route handler//for all todos: /todos
 app.listen(3000,()=>{
   console.log('started on port 3000');
 });

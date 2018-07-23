@@ -5,7 +5,7 @@ const expect = require('expect');
 const {app} = require('./../server.js');
 const {Todo} = require('./../models/todo');
 
-beforeEach((done)=>{
+beforeEach((done)=>{//delete all todos database
   Todo.remove({}).then(()=>done());
 })
 describe('POST /todos',()=>{
