@@ -10,14 +10,14 @@ var app = express();
 
 app.use(bodyParser.json());
 
-app.post('/todos',(req,res)=>
-{
-  var todo = new Todo({
-    text:req.body.text
-  })
+app.post('/todos',(req,res)=> {
+   var todo = new Todo({
+      text:req.body.text,
+      completed:req.body.completed
+ })
 
   todo.save().then((doc)=>{
-    res.send(doc)
+     res.send(doc)//same as console.log(doc) but as the response;
   },(e)=>{
     res.status(400).send(e);
   })
@@ -81,3 +81,5 @@ app.listen(3000,()=>{
 // },(e)=>{
 //   console.log('unable to save email');
 // })
+
+module.exports = {app};//app: app //var app = express()
