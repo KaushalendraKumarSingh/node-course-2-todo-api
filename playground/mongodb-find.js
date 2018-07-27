@@ -20,7 +20,7 @@ db.collection('Users').find({name:'kk'}).toArray().then((docs)=>{
   console.log('Error',err);
 });
 // db.collection('Todos').find().count().then((count)=>{
-//   conso  le.log(`Todos count ${count}`);
+//   console.log(`Todos count ${count}`);
 //   //console.log(JSON.stringify(docs,undefined,2));
 // },(err)=>{
 //   console.log('Error',err);
