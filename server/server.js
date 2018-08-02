@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-
+const {ObjectID} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var {Todo}=require('./models/todo.js');
 var  {User} = require('./models/user.js');
@@ -28,9 +28,30 @@ app.get('/todos',(req,res)=>{
   Todo.find().then((todos)=>{
     res.send({todos});//flexibility wrt  arrays
   },(e)=>{
-    res.status(400),send(e)
+    res.status(400).send(e)
   })//all is back
 })//route handler//for all todos: /todos
+
+//GET /todos/12345
+app.get('/todos/:id',(req,res)=>{
+  var id = req.params.id
+  //validate id using isValid//404-send back emty bodyParser
+  //ObjectID.isValid
+  if(!ObjectID.isValid(id)){
+    return res.status(400).send();
+  }
+
+    Todo.findById(id).then((todo)=>{
+    if(!todo){
+      return res.status(404).send();
+    }
+    res.send({todo});
+  }).catch((e)=>{
+    res.status(401).send()
+  })
+  //can use catch(e)
+  //res.send(req.params)
+})
 app.listen(3000,()=>{
   console.log('started on port 3000');
 });
